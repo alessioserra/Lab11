@@ -45,8 +45,7 @@ public class Evento implements Comparable<Evento>{
 
 	@Override
 	public int compareTo(Evento o) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.ora.compareTo(o.getOra());
 	}
 	
 }

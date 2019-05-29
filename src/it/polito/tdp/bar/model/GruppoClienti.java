@@ -29,7 +29,7 @@ public class GruppoClienti {
 		//numero casuale
 		Random random = new Random();
 		this.numeroClienti = random.nextInt(9)+1; //Numero di clienti tra 1 e 10
-		this.tolleranza = random.nextFloat()-((float)(0.1)); //Tolleranza tra 0 e 0.9
+		this.tolleranza = (float)(Math.random() - 0.1); //Tolleranza tra 0 e 0.9
 		this.tavolo = null;
 	}
 
@@ -77,7 +77,7 @@ public class GruppoClienti {
 	//ToString
 	@Override
 	public String toString() {
-		return "[ID="+id+"] - "+oraArrivo+" NumeroClienti: "+numeroClienti+" STATO:"+stato;
+		return "[ID="+id+"] - "+oraArrivo+" NumeroClienti: "+numeroClienti+" STATO:"+stato+" (Tavolo occupato:"+tavolo+")";
 	}
 	
 	

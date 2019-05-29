@@ -8,6 +8,7 @@ import java.util.PriorityQueue;
 import java.util.Random;
 
 import it.polito.tdp.bar.model.Evento.TipoEvento;
+import it.polito.tdp.bar.model.GruppoClienti.StatoClienti;
 
 public class Simulatore {
 
@@ -58,14 +59,18 @@ public class Simulatore {
 			
 			//Creo tutti i clienti
 			for (int i=0; i<numeroClienti;i++) {
+				
 				GruppoClienti c = new GruppoClienti(i,oraArrivo);
 				clienti.add(c);
+				
+				//Ogni cliente arriva dopo un tempo compreso nell'intervallo [1,10] min
+				Random random = new Random();
+				oraArrivo = oraArrivo.plus(Duration.ofMinutes(random.nextInt(9)+1));
 			}
 
-			//Ogni cliente arriva dopo un tempo compreso nell'intervallo [1,10] min
-			oraArrivo = oraArrivo.plus(Duration.ofMinutes((long)(Math.random()*10)));
-			
+			//Pulisco lista da simulazione precedente
 			if (!tavoli.isEmpty()) tavoli.clear();
+			
 			//Creo tavoli liberi
 			tavoli.add(new Tavolo(10));
 			tavoli.add(new Tavolo(10));		
@@ -125,18 +130,21 @@ public class Simulatore {
 					
 					//Verifico se ci sono tavoli liberi
 					for (Tavolo t : tavoli) {
-						if (numPersone >= t.getNumeroPosti()/2 ) tavolo=t;
+						//E che vengano occupati per almeno il 50%
+						if (numPersone >= ( t.getNumeroPosti()/2) ) tavolo=t;
 					}
 					
 					//Tavolo libero
 					if (tavolo!=null) {
 						c.setTavolo(tavolo);
 					    queue.add(new Evento(ev.getOra(),TipoEvento.TAVOLO_LIBERO,c));
+					    c.setStato(StatoClienti.SEDUTO);
 					    tavoli.remove(tavolo); //Rimuovo il tavolo dalla lista dei tavoli liberi
 					    }
 					//Tavolo occupato ma vanno al bancone
 					else if (tavolo==null && c.getTolleranza()>0.45) {
 						queue.add(new Evento(ev.getOra(),TipoEvento.BANCONE,c));
+						c.setStato(StatoClienti.BANCONE);
 					}
 					//Tavolo occupato e vanno via -> Insoddisfatti
 					else {
@@ -151,12 +159,14 @@ public class Simulatore {
 					Random random = new Random();
 					int permanenza = random.nextInt(60)+60;
 					queue.add(new Evento(ev.getOra().plus(Duration.ofMinutes(permanenza)),TipoEvento.USCITA,c));
+					c.setStato(StatoClienti.OUT);
 					//Cliente ha trovato il tavolo -> Soddisfatto
 					numero_clienti_soddisfatti=numero_clienti_soddisfatti + numPersone; 
 					break;
 					
 				case BANCONE:
 					queue.add(new Evento(ev.getOra(),TipoEvento.USCITA,c));
+					c.setStato(StatoClienti.OUT);
 					numero_clienti_soddisfatti = numero_clienti_soddisfatti + numPersone;
 					break;
 					

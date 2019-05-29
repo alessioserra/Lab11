@@ -12,4 +12,8 @@ public class Tavolo {
 		return numeroPosti;
 	}
 	
+	public String toString() {
+		return String.valueOf(numeroPosti);
+	}
+	
 }
