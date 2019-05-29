@@ -2,7 +2,7 @@ package it.polito.tdp.bar.model;
 
 import java.time.LocalTime;
 
-public class Evento {
+public class Evento implements Comparable<Evento>{
 	
 	//Tipologie di evento che possono accadere
 	public enum TipoEvento{
@@ -20,7 +20,6 @@ public class Evento {
 	
 	//Costruttore
 	public Evento(LocalTime ora, TipoEvento tipo, GruppoClienti gruppoClienti) {
-
 		this.ora = ora;
 		this.tipo = tipo;
 		this.gruppoClienti = gruppoClienti;
@@ -42,6 +41,12 @@ public class Evento {
 	@Override
 	public String toString() {
 		return ora+" - "+tipo+" - "+gruppoClienti;
+	}
+
+	@Override
+	public int compareTo(Evento o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

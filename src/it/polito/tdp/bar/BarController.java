@@ -31,6 +31,15 @@ public class BarController {
 
     @FXML
     void doSimula(ActionEvent event) {
+    	
+    	txtResult.clear();
+    	
+    	simulatore.init();
+    	simulatore.run();
+    	
+    	txtResult.appendText("Numero clienti TOTALI = "+simulatore.getClientiTot()+"\n");
+    	txtResult.appendText("Numero clienti SODDISFATTI = "+simulatore.getSoddisfatti()+"\n");
+    	txtResult.appendText("Numero clienti INSODDISFATTI = "+simulatore.getInsoddisfatti()+"\n");
 
     }
 

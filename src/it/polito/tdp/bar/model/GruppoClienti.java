@@ -18,6 +18,7 @@ public class GruppoClienti {
 	private LocalTime oraArrivo;
 	private int numeroClienti;
 	private float tolleranza;
+	private Tavolo tavolo;
 	
 	//Ogni gruppo di clienti che creo è NEW (appena arrivato)
 	public GruppoClienti(int id, LocalTime oraArrivo) {
@@ -25,8 +26,11 @@ public class GruppoClienti {
 		this.id=id;
 		this.oraArrivo=oraArrivo;
 		this.stato=StatoClienti.NEW;
-		this.numeroClienti = (int)(Math.random()*10); //Numero di clienti tra 1 e 10
-		this.tolleranza = (float)(Math.random()-0.1); //Tolleranza tra 0.0 e 0.9
+		//numero casuale
+		Random random = new Random();
+		this.numeroClienti = random.nextInt(9)+1; //Numero di clienti tra 1 e 10
+		this.tolleranza = random.nextFloat()-((float)(0.1)); //Tolleranza tra 0 e 0.9
+		this.tavolo = null;
 	}
 
 	//Getters and Setters
@@ -34,6 +38,14 @@ public class GruppoClienti {
 		return numeroClienti;
 	}
 	
+	public Tavolo getTavolo() {
+		return tavolo;
+	}
+
+	public void setTavolo(Tavolo tavolo) {
+		this.tavolo = tavolo;
+	}
+
 	public float getTolleranza() {
 		return tolleranza;
 	}
