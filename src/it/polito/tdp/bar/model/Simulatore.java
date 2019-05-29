@@ -19,7 +19,7 @@ public class Simulatore {
 		private List<Tavolo> tavoli;
 		
 		// Parametri di simulazione (Che l'utente può modificare in ogni momento)
-        private int numeroClienti = 2000; //numero di gruppi che arrivan
+        private int numeroClienti = 2000; //Numero di gruppi che arrivano
 		
 		// Statistiche da calcolare
 		private int numero_totale_clienti;
