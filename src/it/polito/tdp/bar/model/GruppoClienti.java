@@ -1,6 +1,7 @@
 package it.polito.tdp.bar.model;
 
 import java.time.LocalTime;
+import java.util.Random;
 
 public class GruppoClienti {
 	
@@ -24,6 +25,8 @@ public class GruppoClienti {
 		this.id=id;
 		this.oraArrivo=oraArrivo;
 		this.stato=StatoClienti.NEW;
+		this.numeroClienti = (int)(Math.random()*10); //Numero di clienti tra 1 e 10
+		this.tolleranza = (float)(Math.random()-0.1); //Tolleranza tra 0.0 e 0.9
 	}
 
 	//Getters and Setters
